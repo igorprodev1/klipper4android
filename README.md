@@ -39,8 +39,6 @@ sudo ls /dev/serial/by-id/*
 scp -P 8022 u0_a184@192.168.0.109:/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/home/ihor/klipper/out/klipper.bin /Users/ihorprokofiev/Downloads
 scp /Users/ihorprokofiev/Downloads/Makefile u0_a184@192.168.0.109:/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/home/ihor/driver -P 8022
 
-// password for all
-S7a48946
 
 ./klipper/scripts/klipper-start.sh start
 
@@ -118,17 +116,5 @@ netstat -tulpn | grep LISTEN
 resp = await self.addr_cmd.run_with_response
 /home/pi/moonraker/moonraker/components/shell_command.py
 
-kill 1234
-
-/tmp/klippy_uds
-
-
 ssh -p 8022 root@192.168.0.109
 
-[display]
-lcd_type: st7920
-cs_pin: PB12
-sclk_pin: PB13
-sid_pin: PB15
-encoder_pins: ^PB14, ^PB10
-click_pin: ^!PB2
