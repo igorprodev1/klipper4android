@@ -30,16 +30,6 @@ sudo /home/ihor/moonraker-env/bin/python /home/ihor/moonraker/moonraker/moonrake
 // edit. SD card check return empty object
 moonraker/moonraker/components/machine.py
 
-sudo ls /dev/serial/by-id/*
-
-// bin file
-/home/ihor/klipper/out/klipper.bin
-
-// copy bi file
-scp -P 8022 u0_a184@192.168.0.109:/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/home/ihor/klipper/out/klipper.bin /Users/ihorprokofiev/Downloads
-scp /Users/ihorprokofiev/Downloads/Makefile u0_a184@192.168.0.109:/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/home/ihor/driver -P 8022
-
-
 ./klipper/scripts/klipper-start.sh start
 
 links
@@ -88,12 +78,12 @@ mkdir ./printer_data/comms
 touch ./printer_data/config/printer.cfg
 touch ./printer_data/config/moonraker.conf
 
-two patches needed
-
-/home/pi/moonraker/moonraker/components/machine.py  Error running shell command: 'ip -json -det address'
-_get_sd_card_info return {}
-
+// 3 patches needed for moonraker
 sed -i 's/max_dbs=MAX_NAMESPACES)/max_dbs=MAX_NAMESPACES, lock=False)/' /moonraker/moonraker/components/database.py
+// sd card permission denide in android linux container
+sed -i 's/self._get_sdcard_info()/{}/' /moonraker/moonraker/components/machine.py
+// checking service return exception, after this script disables write axess
+sed -i 's/fm.disable_write_access()/#fm.disable_write_access()/' /moonraker/moonraker/components/machine.py
 
 // mainsail
 
@@ -118,3 +108,4 @@ resp = await self.addr_cmd.run_with_response
 
 ssh -p 8022 root@192.168.0.109
 
+sh://root@192.168.0.109:8022
